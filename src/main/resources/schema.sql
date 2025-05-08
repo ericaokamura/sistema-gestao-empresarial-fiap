@@ -15,7 +15,8 @@ create table produto(
 create table item_pedido(
     id INT PRIMARY KEY,
     id_produto INT references produto(id),
-    quantidade INT
+    quantidade INT,
+    FOREIGN KEY(id_produto) references produto(id)
 );
 create table forma_pagamento(
     id INT PRIMARY KEY,
@@ -25,10 +26,10 @@ create table forma_pagamento(
 );
 create table pedido(
     id INT PRIMARY KEY,
-    id_item_estoque INT references item_estoque(id),
+    id_item_pedido INT references item_pedido(id),
     data_hora_pedido DATE,
-    forma_pagamento INT references forma_pagamento(id),
+    id_forma_pagamento INT references forma_pagamento(id),
     pagamento_aprovado BOOLEAN,
-    FOREIGN KEY(id_item_estoque) references item_estoque(id),
-    FOREIGN KEY(forma_pagamento) references forma_pagamento(id)
+    FOREIGN KEY(id_item_pedido) references item_pedido(id),
+    FOREIGN KEY(id_forma_pagamento) references forma_pagamento(id)
 );
